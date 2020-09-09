@@ -1,7 +1,9 @@
 require('dotenv').config()
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
-const { debug, info, error } = require("./functions/logging");
+const requireAll = require('require-all');
+
+const { infoLog, debugLog, errorLog } = require("./functions/logging");
 
 const client = new CommandoClient({
     commandPrefix: 'a?',
@@ -21,16 +23,15 @@ client.registry
     .registerDefaultCommands()
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
-client.on("ready", () => {
-    info(`${client.user.username} connected to discord!`)
+const files = requireAll({
+    dirname: `${__dirname}/events`,
+    filter: /^(?!-)(.+)\.js$/
 });
 
-client.on("debug", (data) => {
-    debug(data)
-})
-
-client.on('error', (data) => {
-    error(data);
-})
+for (const name in files) {
+    const event = files[name];
+    client.on(name, event.bind(null, client));
+    infoLog(`Event loaded: ${name}`);
+}
 
 client.login();

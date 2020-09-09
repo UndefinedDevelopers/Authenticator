@@ -1,16 +1,16 @@
 const chalk = require('chalk');
 
-function debug(data) {
+function debugLog(data) {
     console.log(chalk.gray(`[DEBUG]: ${data}`));
 };
-exports.debug = debug;
+exports.debugLog = debugLog;
 
-function info(data) {
+function infoLog(data) {
     console.log(chalk.green(`[INFO]: ${data}`));
 };
-exports.info = info;
+exports.infoLog = infoLog;
 
-function error(data) {
+function errorLog(data) {
     console.log(chalk.red(`[ERROR]: ${data}`));
 };
-exports.error = error;
+exports.errorLog = errorLog;
