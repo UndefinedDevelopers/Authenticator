@@ -16,7 +16,7 @@ module.exports = class SetupCommand extends Command {
 			args: [
 				{
 					key: 'role',
-					prompt: '<:dboatsStreaming:500353798838157312> Welcome to the bot setup!\nPlease ping the role you would like to set up for verification.',
+					prompt: '<:idle:753279249330471063> Welcome to the bot setup!\nPlease ping the role you would like to set up for verification.',
 					type: 'role',
 				},
 			],
@@ -26,7 +26,7 @@ module.exports = class SetupCommand extends Command {
 	async run(message, args) {
 		let roleid = args.role.id;
 		await servers.set(`${message.guild.id}_role`, roleid).then(async () => {
-			return await message.say(`<:dboatsOnline:500353658261733397> Successfully set ${message.guild.roles.cache.get(roleid).name} as your verification role.\n*This will be given to members when they verify, make sure the bots role is above it!*`);
+			return await message.say(`<:online:753279453139828867> Successfully set ${message.guild.roles.cache.get(roleid).name} as your verification role.\n*This will be given to members when they verify, make sure the bots role is above it!*`);
 		});
 	}
 };
