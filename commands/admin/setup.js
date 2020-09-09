@@ -27,7 +27,7 @@ module.exports = class SetupCommand extends Command {
 	async run(message, args) {
 		let roleid = args.role.id;
 		await servers.set(`${message.guild.id}_role`, roleid).then(() => {
-			await message.say(`Successfully set ${message.guild.roles.cache.get(roleid).name} as your verification role.\n*This will be given to members when they join, make sure the bots role is above it!*`);
+			await message.say(`<:dboatsOnline:500353658261733397> Successfully set ${message.guild.roles.cache.get(roleid).name} as your verification role.\n*This will be given to members when they verify, make sure the bots role is above it!*`);
 		});
 	}
 };
