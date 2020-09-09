@@ -5,7 +5,7 @@ const requireAll = require('require-all');
 const { infoLog, debugLog, errorLog } = require("./functions/logging");
 
 const client = new CommandoClient({
-    commandPrefix: 'a?',
+    commandPrefix: process.env.PREFIX,
     owner: '573909482619273255',
     invite: 'https://discord.gg/5kW97X5',
     unknownCommandResponse: false,
