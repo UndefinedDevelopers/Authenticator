@@ -1,5 +1,8 @@
-
 const { Command } = require('discord.js-commando');
+const Keyv = require('keyv');
+const servers = new Keyv(`mysql://${process.env.DB_USER}:${DB_PASS}@${DB_HOST}:3306/${DB_NAME}`)
+const { errorLog } = require("../functions/logging");
+keyv.on('error', err => errorLog(err));
 
 module.exports = class SetupCommand extends Command {
 	constructor(client) {
@@ -14,7 +17,7 @@ module.exports = class SetupCommand extends Command {
 			args: [
 				{
 					key: 'role',
-					prompt: 'Please ping the role you would like to set up for verification!',
+					prompt: '<:dboatsStreaming:500353798838157312> Welcome to the bot setup!\nPlease ping the role you would like to set up for verification.',
 					type: 'role',
 				},
 			],
@@ -22,6 +25,9 @@ module.exports = class SetupCommand extends Command {
 	}
 
 	async run(message, args) {
-		return await message.say(`SERVER ID ${message.guild.id}\nROLE ID: ${args.role.id}`);
+		let roleid = args.role.id;
+		await servers.set(`${message.guild.id}_role`, roleid).then(() => {
+			await message.say(`Successfully set ${message.guild.roles.cache.get(roleid).name} as your verification role.\n*This will be given to members when they join, make sure the bots role is above it!*`);
+		});
 	}
 };
