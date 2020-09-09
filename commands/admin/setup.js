@@ -22,6 +22,9 @@ module.exports = class SetupCommand extends Command {
 	}
 
 	async run(message, args) {
-		return await message.say(`SERVER ID ${message.guild.id}\nROLE: ${args.role}`);
+		let role = args.role;
+		if (args.role.startsWith('<@') && args.role.endsWith('>')) {
+			role = args.role.slice(2, -1);
+		return await message.say(`SERVER ID ${message.guild.id}\nROLE ID: ${role}`);
 	}
 };
