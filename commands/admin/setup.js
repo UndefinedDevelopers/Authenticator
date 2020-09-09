@@ -14,7 +14,7 @@ module.exports = class SetupCommand extends Command {
 			args: [
 				{
 					key: 'role',
-					prompt: 'What text would you like the bot to say?',
+					prompt: 'Placeholder code.',
 					type: 'string',
 				},
 			],
