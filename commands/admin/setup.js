@@ -15,7 +15,7 @@ module.exports = class SetupCommand extends Command {
 				{
 					key: 'role',
 					prompt: 'Please ping the role you would like to set up for verification!',
-					type: 'string',
+					type: 'role',
 				},
 			],
 		});
