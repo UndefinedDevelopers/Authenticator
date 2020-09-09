@@ -2,7 +2,6 @@ require('dotenv').config()
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const requireAll = require('require-all');
-
 const { infoLog, debugLog, errorLog } = require("./functions/logging");
 
 const client = new CommandoClient({
