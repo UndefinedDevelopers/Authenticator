@@ -1,0 +1,19 @@
+{
+  "name": "authenticator",
+  "version": "0.0.0",
+  "description": " Authenticator is a verification bot created to ensure that no bots get through without a fight.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UndefinedDevelopers/Authenticator.git"
+  },
+  "author": "UndefinedDevelopers",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/UndefinedDevelopers/Authenticator/issues"
+  },
+  "homepage": "https://github.com/UndefinedDevelopers/Authenticator#readme"
+}
