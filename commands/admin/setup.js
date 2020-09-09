@@ -14,14 +14,14 @@ module.exports = class SetupCommand extends Command {
 			args: [
 				{
 					key: 'role',
-					prompt: 'Placeholder code.',
+					prompt: 'Please ping the role you would like to set up for verification!',
 					type: 'string',
 				},
 			],
 		});
 	}
 
-	async run(message) {
-		return await message.say('Placeholder code.');
+	async run(message, args) {
+		return await message.say(`SERVER ID ${message.guild.id}\nROLE: ${args.role}`);
 	}
 };
