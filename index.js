@@ -8,7 +8,7 @@ const client = new CommandoClient({
     commandPrefix: process.env.PREFIX,
     owner: '573909482619273255',
     invite: 'https://discord.gg/5kW97X5',
-    unknownCommandResponse: false,
+    nonCommandEditable: true
 });
 
 client.registry

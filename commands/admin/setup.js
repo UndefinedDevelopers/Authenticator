@@ -1,4 +1,3 @@
-require('dotenv').config()
 const { Command } = require('discord.js-commando');
 const Keyv = require('keyv');
 const servers = new Keyv(`mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:3306/${process.env.DB_NAME}`)
