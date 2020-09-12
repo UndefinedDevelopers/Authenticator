@@ -16,7 +16,7 @@ module.exports = class DebugVerifyCommand extends Command {
         });
     }
 
-    async run(message, args) {
+    async run(message) {
         function getRandomString(length) { var s = ""; do { s += Math.random().toString(36).substr(2) } while (s.length < length); return s = s.substr(0, length) }
         let code = getRandomString(6)
         registerFont("PressStart2P.ttf", { family: 'Press Start' })
@@ -31,7 +31,7 @@ module.exports = class DebugVerifyCommand extends Command {
             .attachFiles(new MessageAttachment(canvas.toBuffer(), "image.png"))
             .setImage("attachment://image.png")
             .setColor("ORANGE")
-            .setFooter(`${message.guild.name} is powered by Authenticator`, `${this.client.user.displayAvatarURL({dynamic: true})}`);
+            .setFooter(`${message.guild.name} is powered by Authenticator`, `${message.guild.iconURL({ dynamic: true })}`);
         await message.author.send(embed)
         let roleid = await servers.get(`${message.guild.id}_role`);
         await message.author.send(roleid);
