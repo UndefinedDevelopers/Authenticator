@@ -1,0 +1,37 @@
+name: Deploy to Google App Engine
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  setup-build-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        uses: ikuanyshbekov/app-yaml-env-compiler@v1.0
+        
+      # Setup environment variables for gcloud
+      env:
+        DISCORD_TOKEN: ${{ secrets.CANARY_DISCORD_TOKEN }}
+        PREFIX: ${{ secrets.CANARY_PREFIX }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+      # Setup and configure gcloud CLI
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          project_id: ${{ secrets.PROJECT_ID }}
+          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS}}
+
+      # Deploy App to App Engine
+      - name: Deploy to App Engine
+        run: |
+          gcloud app deploy --quiet
