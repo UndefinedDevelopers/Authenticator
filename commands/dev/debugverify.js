@@ -19,7 +19,6 @@ module.exports = class DebugVerifyCommand extends Command {
     async run(message, args) {
         function getRandomString(length) { var s = ""; do { s += Math.random().toString(36).substr(2) } while (s.length < length); return s = s.substr(0, length) }
         let code = getRandomString(6)
-        await message.say("This command is unfinished.")
         registerFont("PressStart2P.ttf", { family: 'Press Start' })
         const canvas = createCanvas(100, 50);
         const ctx = canvas.getContext('2d');
