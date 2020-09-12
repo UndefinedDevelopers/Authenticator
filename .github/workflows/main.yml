@@ -17,8 +17,8 @@ jobs:
         
       # Setup environment variables for gcloud
       env:
-        DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-        PREFIX: ${{ secrets.PREFIX }}
+        DISCORD_TOKEN: ${{ secrets.STABLE_DISCORD_TOKEN }}
+        PREFIX: ${{ secrets.STABLE_PREFIX }}
         DB_HOST: ${{ secrets.DB_HOST }}
         DB_NAME: ${{ secrets.DB_NAME }}
         DB_USER: ${{ secrets.DB_USER }}
