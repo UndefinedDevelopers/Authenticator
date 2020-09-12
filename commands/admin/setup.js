@@ -1,22 +1,22 @@
-const { Command } = require('discord.js-commando');
-const Keyv = require('keyv');
+const { Command } = require("discord.js-commando");
+const Keyv = require("keyv");
 const servers = new Keyv(`mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:3306/${process.env.DB_NAME}`)
 
 module.exports = class SetupCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'setup',
-			group: 'admin',
-			memberName: 'setup',
-			description: 'Setups the bot',
-			clientPermissions: ['ADMINISTRATOR'],
-			userPermissions: ['ADMINISTRATOR'],
+			name: "setup",
+			group: "admin",
+			memberName: "setup",
+			description: "Setups the bot",
+			clientPermissions: ["ADMINISTRATOR"],
+			userPermissions: ["ADMINISTRATOR"],
 			guildOnly: true,
 			args: [
 				{
-					key: 'role',
-					prompt: '<:idle:753279249330471063> Welcome to the bot setup!\nPlease ping the role you would like to set up for verification.',
-					type: 'role',
+					key: "role",
+					prompt: "<:idle:753279249330471063> Welcome to the bot setup!\nPlease ping the role you would like to set up for verification.",
+					type: "role",
 				},
 			],
 		});

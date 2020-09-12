@@ -1,4 +1,4 @@
-const chalk = require('chalk');
+const chalk = require("chalk");
 
 function debugLog(data) {
     console.log(chalk.gray(`[DEBUG]: ${data}`));
