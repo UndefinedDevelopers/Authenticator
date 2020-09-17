@@ -2,17 +2,20 @@ module.exports = async (client, member) => {
     const Keyv = require("keyv");
     const servers = new Keyv(`mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:3306/${process.env.DB_NAME}`)
     const { createCanvas, registerFont } = require("canvas");
-    let { MessageEmbed, MessageAttachment } = require("discord.js");
+    const { generateCode } = require("../functions/generateCode");
     const { infoLog } = require("../functions/logging");
+    const { MessageEmbed, MessageAttachment } = require("discord.js");
+
+    let id = await servers.get(`${member.guild.id}_role`);
+    let role = member.guild.roles.cache.get(id);
     infoLog(`${member.user.username} joined ${member.guild}, starting user verification!`);
-    let id = servers.get(`${member.guild.id}_role`);
 
     switch (id) {
         case undefined:
+            await member.send("<:dnd:753279499885477898> Sorry, this server does not have verification roles set up!\nYou cannot be verified.")
             break;
 
         default:
-            const { generateCode } = require("../functions/generateCode");
             let code = generateCode(6);
             registerFont("PressStart2P.ttf", { family: "Press Start" })
             const canvas = createCanvas(100, 35);
@@ -29,17 +32,19 @@ module.exports = async (client, member) => {
                 .setFooter(`${member.guild.name} is powered by Authenticator`, `${member.guild.iconURL({ dynamic: true })}`);
             await member.send(embed).then(async (msg) => {
                 msg.channel.awaitMessages(() => true, { max: 1, time: 600000, errors: ['time'] }).then(async (response) => {
-                    console.log("Generated Code: " + code)
-                    console.log("User Code: " + response.first().content.toUpperCase())
                     if (response.first().content.toUpperCase() === code) {
                         await member.send(`<:online:753279453139828867> That was the correct code! Your access to \`${member.guild.name}\` has been granted.`)
-                        let role = member.guild.cache.roles.find(r => r.id === `${id}`);
-                        member.roles.add(role)
+                        await member.roles.add(role).then(() => {
+                            infoLog(`${member.user.username} completed verification in ${member.guild}!`);
+                        })
                     } else {
                         await member.send("<:dnd:753279499885477898> Sorry, but that code is invalid. You have been kicked from the server. If you wish to try again, rejoin the guild.").then(async () => {
                             await member.kick(`${member.user.tag} failed verification.`)
+                            infoLog(`${member.user.username} failed verification in ${member.guild}!`);
                         })
                     }
+                }).catch(async () => {
+                    await member.send(`<:dnd:753279499885477898> Sorry, you ran out of time to complete verification and was kicked from ***\`${member.guild.name}\`***\nIf you wish to try again, rejoin the guild.`)
                 })
             })
             break;
