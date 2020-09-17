@@ -19,7 +19,9 @@ client.registry
         ["dev", "Developer commands"]
     ])
     .registerDefaultGroups()
-    .registerDefaultCommands()
+    .registerDefaultCommands({
+        unknownCommand: false
+    })
     .registerCommandsIn(path.join(__dirname, "commands"));
 
 const files = requireAll({
