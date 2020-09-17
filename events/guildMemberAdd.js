@@ -7,8 +7,6 @@ module.exports = async (client, member) => {
     infoLog(`${member.user.username} joined ${member.guild}, starting user verification!`);
     let id = servers.get(`${member.guild.id}_role`);
 
-    console.log(Object.keys(member))
-
     switch (id) {
         case undefined:
             break;
@@ -35,8 +33,8 @@ module.exports = async (client, member) => {
                     console.log("User Code: " + response.first().content.toUpperCase())
                     if (response.first().content.toUpperCase() === code) {
                         await member.send(`<:online:753279453139828867> That was the correct code! Your access to \`${member.guild.name}\` has been granted.`)
-                        let role = member.guild.cache.find(r => r.id === `${id}`);
-                        member.roles.add(role);
+                        let role = member.guild.cache.roles.find(r => r.id === `${id}`);
+                        member.roles.add(role)
                     } else {
                         await member.send("<:dnd:753279499885477898> Sorry, but that code is invalid. You have been kicked from the server. If you wish to try again, rejoin the guild.").then(async () => {
                             await member.kick(`${member.user.tag} failed verification.`)
