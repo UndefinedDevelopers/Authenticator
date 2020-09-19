@@ -2,6 +2,7 @@ module.exports = async (client, member, servers) => {
     const { infoLog } = require("../functions/logging");
     const { generateImage } = require("../functions/generateImage");
     const { MessageEmbed, MessageAttachment } = require("discord.js");
+    let servers = require('../index.js')
 
     let id = await servers.get(`${member.guild.id}_role`);
     let role = member.guild.roles.cache.get(id);
