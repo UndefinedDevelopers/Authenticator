@@ -1,9 +1,9 @@
 module.exports = async (client, member) => {
     const Keyv = require("keyv");
     const servers = new Keyv(`mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:3306/${process.env.DB_NAME}`)
-    const { createCanvas, registerFont } = require("canvas");
     const { generateCode } = require("../functions/generateCode");
     const { infoLog } = require("../functions/logging");
+    const { generateImage } = require("../functions/generateImage");
     const { MessageEmbed, MessageAttachment } = require("discord.js");
 
     let id = await servers.get(`${member.guild.id}_role`);
@@ -17,12 +17,8 @@ module.exports = async (client, member) => {
 
         default:
             let code = generateCode(6);
-            registerFont("PressStart2P.ttf", { family: "Press Start" })
-            const canvas = createCanvas(100, 35);
-            const ctx = canvas.getContext("2d");
-            ctx.fillStyle = "#FF8C00";
-            ctx.font = '15px "Press Start"';
-            ctx.fillText(`${code}`, 12, 35);
+            let canvas = generateImage();
+
             let embed = new MessageEmbed()
                 .setTitle(`<:idle:753279249330471063> Welcome to \`${member.guild.name}\``)
                 .setDescription("This server uses verification to keep out robots, Please enter the code below to verify you are not a bot!\nYou have **10** minutes to verify.")
@@ -30,6 +26,7 @@ module.exports = async (client, member) => {
                 .setImage("attachment://code.png")
                 .setColor("ORANGE")
                 .setFooter(`${member.guild.name} is powered by Authenticator`, `${member.guild.iconURL({ dynamic: true })}`);
+
             await member.send(embed).then(async (msg) => {
                 msg.channel.awaitMessages(() => true, { max: 1, time: 600000, errors: ['time'] }).then(async (response) => {
                     if (response.first().content.toUpperCase() === code) {
@@ -50,5 +47,6 @@ module.exports = async (client, member) => {
             break;
     }
 };
+
 
 
