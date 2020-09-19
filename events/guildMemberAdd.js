@@ -1,7 +1,4 @@
-module.exports = async (client, member) => {
-    const Keyv = require("keyv");
-    const servers = new Keyv(`mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:3306/${process.env.DB_NAME}`)
-    const { generateCode } = require("../functions/generateCode");
+module.exports = async (client, member, servers) => {
     const { infoLog } = require("../functions/logging");
     const { generateImage } = require("../functions/generateImage");
     const { MessageEmbed, MessageAttachment } = require("discord.js");
@@ -16,7 +13,6 @@ module.exports = async (client, member) => {
             break;
 
         default:
-            let code = generateCode(6);
             let canvas = generateImage();
 
             let embed = new MessageEmbed()

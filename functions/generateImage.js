@@ -1,5 +1,7 @@
 function generateImage() {
     const { createCanvas, registerFont } = require("canvas");
+    const { generateCode } = require("../functions/generateCode");
+    const code = generateCode(6);
     registerFont("fonts/PressStart2P.ttf", { family: "Press Start" });
     const canvas = createCanvas(100, 35);
     const ctx = canvas.getContext("2d");
