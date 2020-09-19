@@ -1,4 +1,4 @@
-module.exports = async (client, member, servers) => {
+module.exports = async (client, member) => {
     const { infoLog } = require("../functions/logging");
     const { generateImage } = require("../functions/generateImage");
     const { MessageEmbed, MessageAttachment } = require("discord.js");
