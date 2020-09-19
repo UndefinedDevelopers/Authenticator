@@ -4,6 +4,7 @@ const path = require("path");
 const requireAll = require("require-all");
 const { infoLog, debugLog, errorLog } = require("./functions/logging");
 
+const module = require('./events/guildMemberAdd');
 const Keyv = require("keyv"); 
 const servers = new Keyv(`mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:3306/${process.env.DB_NAME}`)
 module(servers);

@@ -1,11 +1,9 @@
-const Keyv = require("keyv");
 const { Command } = require("discord.js-commando");
-let { MessageEmbed, MessageAttachment } = require("discord.js");
+const { MessageEmbed, MessageAttachment } = require("discord.js");
 const { createCanvas, registerFont } = require("canvas");
-const servers = new Keyv(`mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:3306/${process.env.DB_NAME}`)
 
 module.exports = class DebugVerifyCommand extends Command {
-    constructor(client) {
+    constructor(client, servers) {
         super(client, {
             name: "debugverify",
             group: "dev",
@@ -16,7 +14,7 @@ module.exports = class DebugVerifyCommand extends Command {
         });
     }
 
-    async run(message) {
+    async run(message, servers) {
         function getRandomString(length) { var s = ""; do { s += Math.random().toString(36).substr(2) } while (s.length < length); return s = s.substr(0, length) }
         let code = getRandomString(6)
         registerFont("PressStart2P.ttf", { family: "Press Start" })
@@ -33,7 +31,7 @@ module.exports = class DebugVerifyCommand extends Command {
             .setColor("ORANGE")
             .setFooter(`${message.guild.name} is powered by Authenticator`, `${message.guild.iconURL({ dynamic: true })}`);
         await message.author.send(embed)
-        let roleid = await servers.get(`${message.guild.id}_role`);
+        let roleid = await this.servers.get(`${message.guild.id}_role`);
         await message.author.send(roleid);
     }
 };
