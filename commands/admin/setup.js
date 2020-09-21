@@ -1,5 +1,5 @@
 const { Command } = require("discord.js-commando");
-let { servers } = require('../../index.js');
+const { servers } = require('../../index.js');
 
 module.exports = class SetupCommand extends Command {
 	constructor(client) {

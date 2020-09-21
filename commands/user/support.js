@@ -1,4 +1,3 @@
-
 const { Command } = require("discord.js-commando");
 
 module.exports = class SupportCommand extends Command {
