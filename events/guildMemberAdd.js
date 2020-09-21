@@ -1,8 +1,10 @@
 module.exports = async (client, member) => {
     const { infoLog } = require("../functions/logging");
     const { generateImage } = require("../functions/generateImage");
+    const { generateCode } = require("../functions/generateCode");
+
     const { MessageEmbed, MessageAttachment } = require("discord.js");
-    let servers = require('../index.js')
+    let { servers } = require('../index.js');
 
     let id = await servers.get(`${member.guild.id}_role`);
     let role = member.guild.roles.cache.get(id);
@@ -14,7 +16,8 @@ module.exports = async (client, member) => {
             break;
 
         default:
-            let canvas = generateImage();
+            let code = generateCode(6);
+            let canvas = generateImage(code);
 
             let embed = new MessageEmbed()
                 .setTitle(`<:idle:753279249330471063> Welcome to \`${member.guild.name}\``)
