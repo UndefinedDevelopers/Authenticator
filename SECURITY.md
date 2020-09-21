@@ -2,12 +2,11 @@
 
 ## Supported Branches
 
-Currently, both branches of Authenticator are supported.
+Currently, the stable branch of Authenticator is supported.
 
 | Branch  | Supported          |
 | ------- | ------------------ |
 | Stable  | :white_check_mark: |
-| Canary  | :white_check_mark: |
 
 ## Reporting a Vulnerability
 
