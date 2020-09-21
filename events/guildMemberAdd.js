@@ -12,7 +12,7 @@ module.exports = async (client, member) => {
 
     switch (id) {
         case undefined:
-            await member.send("<:dnd:753279499885477898> Sorry, this server does not have verification roles set up!\nYou cannot be verified.")
+            // await member.send("<:dnd:753279499885477898> Sorry, this server does not have verification roles set up!\nYou cannot be verified.")
             break;
 
         default:
