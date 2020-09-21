@@ -21,7 +21,7 @@ module.exports = async (client, member) => {
         default:
             if (member.user.bot) {
                 await member.roles.add(role);
-                infoLog(`${member.user.username} (BOT) bypassed verification in ${member.guild}!`);
+                infoLog(`${member.user.username} () bypassed verification in ${member.guild}!`);
                 break;
             }
 
@@ -45,11 +45,13 @@ module.exports = async (client, member) => {
                             infoLog(`${member.user.username} failed verification in ${member.guild}!`);
                         })
                     }
+                }).catch(async err => {
+                    if (!err) return;
+                    message.reply(`<:dnd:753279499885477898> You have ran out of time to verify and was kicked from \`${message.guild.name}\`!`)
+                    await member.kick(`${member.user.tag} failed verification.`)
+                    infoLog(`${member.user.username} ran out of time to verify in ${member.guild}!`);
                 })
             })
             break;
     }
 };
-
-
-
