@@ -4,10 +4,13 @@ module.exports = async (client, member) => {
     const { generateCode } = require("../functions/generateCode");
 
     const { MessageEmbed, MessageAttachment } = require("discord.js");
-    let { servers } = require('../index.js');
+    const { servers } = require('../index.js');
 
     let id = await servers.get(`${member.guild.id}_role`);
     let role = member.guild.roles.cache.get(id);
+    let code = generateCode(6);
+    let canvas = generateImage(code);
+
     infoLog(`${member.user.username} joined ${member.guild}, starting user verification!`);
 
     switch (id) {
@@ -16,8 +19,11 @@ module.exports = async (client, member) => {
             break;
 
         default:
-            let code = generateCode(6);
-            let canvas = generateImage(code);
+            if (member.user.bot) {
+                await member.roles.add(role);
+                infoLog(`${member.user.username} (BOT) bypassed verification in ${member.guild}!`);
+                break;
+            }
 
             let embed = new MessageEmbed()
                 .setTitle(`<:idle:753279249330471063> Welcome to \`${member.guild.name}\``)
@@ -26,7 +32,6 @@ module.exports = async (client, member) => {
                 .setImage("attachment://code.png")
                 .setColor("ORANGE")
                 .setFooter(`${member.guild.name} is powered by Authenticator`, `${member.guild.iconURL({ dynamic: true })}`);
-
             await member.send(embed).then(async (msg) => {
                 msg.channel.awaitMessages(() => true, { max: 1, time: 600000, errors: ['time'] }).then(async (response) => {
                     if (response.first().content.toUpperCase() === code) {
