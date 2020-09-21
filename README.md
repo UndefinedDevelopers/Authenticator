@@ -21,5 +21,5 @@ Yes! We are open to suggestions, simply open an issue on our github or type .sug
 ## Commands
 - a?help - Lists commands
 - a?prefix - View and change the bot's prefix.
-- a?ping - View the bot's current ping
+- a?ping - View the bot's current ping.
 - a?setup - Starts the bot setup process.
