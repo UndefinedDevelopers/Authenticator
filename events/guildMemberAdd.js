@@ -40,8 +40,6 @@ module.exports = async (client, member) => {
                             infoLog(`${member.user.username} failed verification in ${member.guild}!`);
                         })
                     }
-                }).catch(async () => {
-                    await member.send(`<:dnd:753279499885477898> Sorry, you ran out of time to complete verification and was kicked from ***\`${member.guild.name}\`***\nIf you wish to try again, rejoin the guild.`)
                 })
             })
             break;

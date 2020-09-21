@@ -52,8 +52,6 @@ module.exports = class DebugVerifyCommand extends Command {
                                 infoLog(`${message.author.username} failed verification in ${message.member.guild}!`);
                             })
                         }
-                    }).catch(async () => {
-                        await message.author.send(`<:dnd:753279499885477898> Sorry, you ran out of time to complete verification and was kicked from ***\`${message.member.guild.name}\`***\nIf you wish to try again, rejoin the guild.`)
                     })
                 })
                 break;
