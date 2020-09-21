@@ -1,5 +1,11 @@
 function generateCode(length) {
-    var s = ""; do { s += Math.random().toString(36).substr(2).toUpperCase(); } while (s.length < length); return s = s.substr(0, length);
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
 }
 
 exports.generateCode = generateCode;
