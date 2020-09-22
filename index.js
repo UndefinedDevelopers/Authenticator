@@ -2,9 +2,12 @@ require("dotenv").config()
 const { CommandoClient } = require("discord.js-commando");
 const path = require("path");
 const requireAll = require("require-all");
-const { infoLog, debugLog, errorLog } = require("./functions/logging");
-const Keyv = require("keyv"); 
-const servers = new Keyv(`mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:3306/${process.env.DB_NAME}`)
+const { infoLog, errorLog } = require("./functions/logging");
+const Keyv = require("keyv");
+const servers = new Keyv(`postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:5432/${process.env.DB_NAME}`)
+servers.on('error', err => {
+    errorLog(err);
+});
 exports.servers = servers;
 
 const client = new CommandoClient({
