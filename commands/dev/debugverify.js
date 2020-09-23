@@ -18,6 +18,7 @@ module.exports = class DebugVerifyCommand extends Command {
 
     async run(message) {
         let id = await servers.get(`${message.guild.id}_role`);
+        if (!id) return message.reply("<:dnd:753279499885477898> You have not set up a role for this server!");
         let role = message.guild.roles.cache.get(id);
         infoLog(`${message.author.username} joined ${message.guild.name}, starting user verification!`);
 

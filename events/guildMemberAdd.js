@@ -3,7 +3,7 @@ module.exports = async (client, member) => {
     const { generateImage } = require("../functions/generateImage");
     const { generateCode } = require("../functions/generateCode");
 
-    const { MessageEmbed, MessageAttachment } = require("discord.js");
+    const { MessageEmbed, MessageAttachment, GuildMemberManager } = require("discord.js");
     const { servers } = require('../index.js');
 
     let id = await servers.get(`${member.guild.id}_role`);
@@ -30,8 +30,10 @@ module.exports = async (client, member) => {
                 .setDescription("This server uses verification to keep out robots, Please enter the code below to verify you are not a bot!\nYou have **10** minutes to verify.")
                 .attachFiles(new MessageAttachment(canvas.toBuffer(), "code.png"))
                 .setImage("attachment://code.png")
-                .setColor("ORANGE")
-                .setFooter(`${member.guild.name} is powered by Authenticator`, `${member.guild.iconURL({ dynamic: true })}`);
+                .setColor("ORANGE");
+            if (member.guild.iconURL()) {
+                embed.setFooter(`${member.guild.name} is powered by Authenticator`, `${member.guild.iconURL({ dynamic: true })}`);
+            } else return embed.setFooter(`${member.guild.name} is powered by Authenticator`);;
             await member.send(embed).then(async (msg) => {
                 msg.channel.awaitMessages(() => true, { max: 1, time: 600000, errors: ['time'] }).then(async (response) => {
                     if (response.first().content.toUpperCase() === code) {
