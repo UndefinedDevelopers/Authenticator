@@ -3,7 +3,7 @@ module.exports = async (client, member) => {
     const { generateImage } = require("../functions/generateImage");
     const { generateCode } = require("../functions/generateCode");
 
-    const { MessageEmbed, MessageAttachment, GuildMemberManager } = require("discord.js");
+    const { MessageEmbed, MessageAttachment } = require("discord.js");
     const { servers } = require('../index.js');
 
     let id = await servers.get(`${member.guild.id}_role`);
