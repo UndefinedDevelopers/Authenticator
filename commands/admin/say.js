@@ -7,7 +7,7 @@ module.exports = class SayCommand extends Command {
 			group: "admin",
 			memberName: "say",
             description: "Mind Control.",
-            clientPermissions: ['SEND_MESSAGES'],
+            clientPermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
             userPermissions: ['MANAGE_MESSAGES'],
             args: [
                 {
@@ -21,6 +21,8 @@ module.exports = class SayCommand extends Command {
 	}
 
 	async run(message, { text }) {
-        return await message.channel.send(`${text}`);
+        await message.delete().then(async () => {
+            await message.channel.send(`${text}`);
+        })
 	}
 };
