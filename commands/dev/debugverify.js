@@ -12,7 +12,6 @@ module.exports = class DebugVerifyCommand extends Command {
             group: "dev",
             memberName: "debugverify",
             description: "Triggers the verification prompt in DMs",
-            ownerOnly: true,
             guildOnly: true
         });
     }
