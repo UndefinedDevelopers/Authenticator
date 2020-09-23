@@ -21,7 +21,7 @@ module.exports = async (client, member) => {
         default:
             if (member.user.bot) {
                 await member.roles.add(role);
-                infoLog(`${member.user.username} () bypassed verification in ${member.guild}!`);
+                infoLog(`${member.user.tag} bypassed verification in ${member.guild}!`);
                 break;
             }
 
@@ -39,17 +39,17 @@ module.exports = async (client, member) => {
                     if (response.first().content.toUpperCase() === code) {
                         await member.send(`<:online:753279453139828867> That was the correct code! Your access to \`${member.guild.name}\` has been granted.`)
                         await member.roles.add(role).then(() => {
-                            infoLog(`${member.user.username} completed verification in ${member.guild}!`);
+                            infoLog(`${member.user.tag} completed verification in ${member.guild}!`);
                         })
                     } else {
                         await member.send("<:dnd:753279499885477898> Sorry, but that code is invalid. You have been kicked from the server. If you wish to try again, rejoin the guild.").then(async () => {
                             await member.kick(`${member.user.tag} failed verification.`)
-                            infoLog(`${member.user.username} failed verification in ${member.guild}!`);
+                            infoLog(`${member.user.tag} failed verification in ${member.guild}!`);
                         })
                     }
                 }).catch(async err => {
                     if (!err) return;
-                    message.reply(`<:dnd:753279499885477898> You have ran out of time to verify and was kicked from \`${message.guild.name}\`!`)
+                    await member.send(`<:dnd:753279499885477898> You have ran out of time to verify and was kicked from \`${message.guild.name}\`!`)
                     await member.kick(`${member.user.tag} failed verification.`)
                     infoLog(`${member.user.username} ran out of time to verify in ${member.guild}!`);
                 })
