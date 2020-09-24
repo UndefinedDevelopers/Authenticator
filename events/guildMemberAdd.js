@@ -47,11 +47,6 @@ module.exports = async (client, member) => {
                             infoLog(`${member.user.tag} failed verification in ${member.guild}!`);
                         })
                     }
-                }).catch(async err => {
-                    if (!err) return;
-                    await member.send(`<:dnd:753279499885477898> You have ran out of time to verify and was kicked from \`${message.guild.name}\`!`)
-                    await member.kick(`${member.user.tag} failed verification.`)
-                    infoLog(`${member.user.username} ran out of time to verify in ${member.guild}!`);
                 })
             })
             break;
