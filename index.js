@@ -14,7 +14,8 @@ const client = new CommandoClient({
     commandPrefix: process.env.PREFIX,
     owner: "573909482619273255",
     invite: "https://discord.gg/5kW97X5",
-    nonCommandEditable: true
+    nonCommandEditable: true,
+    disableMentions: true
 });
 
 client.registry
