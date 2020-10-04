@@ -24,7 +24,7 @@ module.exports = class DebugVerifyCommand extends Command {
 
         switch (id) {
             case undefined:
-                await message.autho.send("<:dnd:753279499885477898> Sorry, this server does not have verification roles set up!\nYou cannot be verified.")
+                // await message.autho.send("<:dnd:753279499885477898> Sorry, this server does not have verification roles set up!\nYou cannot be verified.")
                 break;
 
             default:
@@ -35,7 +35,6 @@ module.exports = class DebugVerifyCommand extends Command {
                     .setTitle(`<:idle:753279249330471063> Welcome to \`${message.guild.name}\``)
                     .setDescription("This server uses verification to keep out robots, Please enter the code below to verify you are not a bot!\nYou have **10** minutes to verify.")
                     .attachFiles(new MessageAttachment(canvas.toBuffer(), "code.png"))
-                    .addField("Captcha", "")
                     .setImage("attachment://code.png")
                     .setColor("ORANGE")
                     .setFooter(`${message.member.guild.name} is powered by Authenticator`, `${message.member.guild.iconURL({ dynamic: true })}`);
